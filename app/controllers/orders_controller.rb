@@ -16,7 +16,10 @@ class OrdersController < ApplicationController
         p.quantity = cart_item.quantity
         p.save
       end
+      
       current_cart.cart_items.destroy_all
+      OrderMailer.notify_order_placed(@order).deliver!
+
       redirect_to order_path(@order.token)
       flash[:notice] = "订单已生成！"
     else
