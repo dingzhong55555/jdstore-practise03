@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
         p.quantity = cart_item.quantity
         p.save
       end
-      
+
       current_cart.cart_items.destroy_all
       OrderMailer.notify_order_placed(@order).deliver!
 
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
   def pay_with_alipay
     @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("alipay")
-    @order.pay!
+    @order.make_payment!
     redirect_to :back
     flash[:notice] = "已用支付宝完成付款！"
   end
@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
   def pay_with_wechat
     @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("wechat")
-    @order.pay!
+    @order.make_payment!
     redirect_to :back
     flash[:notice] = "已用微信完成付款！"
   end
