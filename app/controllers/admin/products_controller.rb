@@ -35,11 +35,7 @@ class Admin::ProductsController < ApplicationController
     end
   end
 
-  def require_is_admin
-    if !current_user.admin?
-      redirect_to "/", alert: "You are not admin!"
-    end
-  end
+  
 
   private
 
