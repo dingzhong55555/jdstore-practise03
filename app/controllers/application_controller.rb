@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
       return cart
     end
 
+    def require_is_admin
+      if !current_user.admin?
+        redirect_to "/", alert: "You are not admin!"
+      end
+    end
+
 end
